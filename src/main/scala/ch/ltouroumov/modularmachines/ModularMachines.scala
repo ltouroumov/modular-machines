@@ -12,7 +12,8 @@ import ch.ltouroumov.modularmachines.common._
 @Mod(modid = "modularmachines", name = "Modular Machines", version = "0.1", modLanguage = "scala")
 object ModularMachines {
 
-  @SidedProxy(clientSide = "ch.ltoutoumov.modularmachines.client.ClientProxy",
+
+  @SidedProxy(clientSide = "ch.ltouroumov.modularmachines.client.ClientProxy",
               serverSide = "ch.ltouroumov.modularmachines.server.ServerProxy")
   var proxy: CommonProxy = null
 
@@ -31,7 +32,6 @@ object ModularMachines {
   @EventHandler
   def init(evt: FMLInitializationEvent) {
     // init
-    System.out.println("Initialized mod")
     GameRegistry.registerBlock(blockMachineFrame, "blockMachineFrame")
     GameRegistry.registerBlock(blockMachineController, "blockMachineController")
     GameRegistry.registerTileEntity(classOf[tileentity.MachineControllerEntity], "machineController")
