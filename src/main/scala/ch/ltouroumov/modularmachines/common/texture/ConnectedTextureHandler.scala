@@ -2,7 +2,7 @@ package ch.ltouroumov.modularmachines.common.texture
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.texture.IIconRegister
-import net.minecraft.util.IIcon
+import net.minecraft.util.{Facing, IIcon}
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.common.util.ForgeDirection
 
@@ -80,50 +80,64 @@ class ConnectedTextureHandler[TBlock](val baseName: String, val canConnect: Bloc
     }
   }
   
-  case class Bitmask(north: Int,
-                     south: Int,
-                     east: Int,
-                     west: Int,
-                     ne: Int,
-                     nw: Int,
-                     se: Int,
-                     sw: Int)
+  def shouldRenderSide(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int) : Boolean = {
+    true
+    //!searchAt(x + Facing.offsetsXForSide(side), y + Facing.offsetsYForSide(side), z + Facing.offsetsZForSide(side), orOpaque = true)(world)
+    /*ForgeDirection.getOrientation(side) match {
+      case ForgeDirection.UP    => !searchAt(x, y + 1, z)
+      case ForgeDirection.DOWN  => !searchAt(x, y - 1, z)
+      case ForgeDirection.NORTH => !searchAt(x, y, z - 1)
+      case ForgeDirection.SOUTH => !searchAt(x, y, z + 1)
+      case ForgeDirection.WEST  => !searchAt(x - 1, y, z)
+      case ForgeDirection.EAST  => !searchAt(x + 1, y, z)
+      case _ => true
+    }*/
+  }
+  
+  case class Bitmask(north: Int, south: Int,
+                     east: Int, west: Int,
+                     ne: Int, nw: Int,
+                     se: Int, sw: Int)
 
   def searchXZ(x :Int, y: Int, z: Int)(implicit world: IBlockAccess) : Bitmask =
-    Bitmask(north = searchAt(x, y, z - 1),
-            south = searchAt(x, y, z + 1),
-            east  = searchAt(x + 1, y, z),
-            west  = searchAt(x - 1, y, z),
-            ne    = searchAt(x - 1, y, z - 1),
-            nw    = searchAt(x + 1, y, z - 1),
-            se    = searchAt(x - 1, y, z + 1),
-            sw    = searchAt(x + 1, y, z + 1))
+    Bitmask(north = searchAtBit(x, y, z - 1),
+            south = searchAtBit(x, y, z + 1),
+            east  = searchAtBit(x + 1, y, z),
+            west  = searchAtBit(x - 1, y, z),
+            ne    = searchAtBit(x - 1, y, z - 1),
+            nw    = searchAtBit(x + 1, y, z - 1),
+            se    = searchAtBit(x - 1, y, z + 1),
+            sw    = searchAtBit(x + 1, y, z + 1))
 
   def searchXY(x :Int, y: Int, z: Int, m: Int)(implicit world: IBlockAccess) : Bitmask = {
-    Bitmask(north = searchAt(x, y + 1, z),
-            south = searchAt(x, y - 1, z),
-            east  = searchAt(x + m, y, z),
-            west  = searchAt(x - m, y, z),
-            ne    = searchAt(x - m, y + 1, z),
-            nw    = searchAt(x + m, y + 1, z),
-            se    = searchAt(x - m, y - 1, z),
-            sw    = searchAt(x + m, y - 1, z))
+    Bitmask(north = searchAtBit(x, y + 1, z),
+            south = searchAtBit(x, y - 1, z),
+            east  = searchAtBit(x + m, y, z),
+            west  = searchAtBit(x - m, y, z),
+            ne    = searchAtBit(x - m, y + 1, z),
+            nw    = searchAtBit(x + m, y + 1, z),
+            se    = searchAtBit(x - m, y - 1, z),
+            sw    = searchAtBit(x + m, y - 1, z))
   }
 
   def searchZY(x :Int, y: Int, z: Int, m: Int)(implicit world: IBlockAccess) : Bitmask = {
-    Bitmask(north = searchAt(x, y + 1, z),
-            south = searchAt(x, y - 1, z),
-            east  = searchAt(x, y, z + m),
-            west  = searchAt(x, y, z - m),
-            ne    = searchAt(x, y + 1, z - m),
-            nw    = searchAt(x, y + 1, z + m),
-            se    = searchAt(x, y - 1, z - m),
-            sw    = searchAt(x, y - 1, z + m))
+    Bitmask(north = searchAtBit(x, y + 1, z),
+            south = searchAtBit(x, y - 1, z),
+            east  = searchAtBit(x, y, z + m),
+            west  = searchAtBit(x, y, z - m),
+            ne    = searchAtBit(x, y + 1, z - m),
+            nw    = searchAtBit(x, y + 1, z + m),
+            se    = searchAtBit(x, y - 1, z - m),
+            sw    = searchAtBit(x, y - 1, z + m))
   }
-
-  def searchAt(x: Int, y: Int, z: Int)(implicit world: IBlockAccess) : Int = {
+  
+  def searchAt(x: Int, y: Int, z: Int, orOpaque: Boolean = false)(implicit world: IBlockAccess) : Boolean = {
     val block = world.getBlock(x, y, z)
-    if (canConnect(block)) 1
+    canConnect(block) || (orOpaque && block.isOpaqueCube)
+  }
+  
+  def searchAtBit(x: Int, y: Int, z: Int)(implicit world: IBlockAccess) : Int = {
+    if (searchAt(x, y, z)) 1
     else 0
   }
 }
