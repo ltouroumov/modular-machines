@@ -1,0 +1,8 @@
+tile.MachineFrame.name=Machine Frame
+tile.MachineController.name=Machine Controller
+tile.MachineGlass.name=Machine Glass
+tile.MachinePort_Items.name=Items Port
+tile.MachinePort_Power.name=Power Port
+tile.MachinePort_Fluid.name=Fluid Port
+tile.MachineModule_Smelter.name=Smelter Module
+tile.MachineModule_Coil.name=Heating Coil

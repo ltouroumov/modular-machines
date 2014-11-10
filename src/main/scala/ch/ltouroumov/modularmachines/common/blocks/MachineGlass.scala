@@ -1,5 +1,6 @@
 package ch.ltouroumov.modularmachines.common.blocks
 
+import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.texture.ConnectedTextureHandler
 import net.minecraft.block.Block
@@ -12,14 +13,16 @@ class MachineGlass extends Block(Material.glass) {
 
   setHardness(1.0F)
   setStepSound(Block.soundTypeGlass)
-  setBlockName("Machine Glass")
+  setBlockName("MachineGlass")
   setCreativeTab(ModularMachines.tabModularMachines)
-  setBlockTextureName("modularmachines:Window_Side_All_Closed")
 
-  val textureHandler = new ConnectedTextureHandler("modularmachines:Window_Side", block => block.isInstanceOf[MachineGlass])
+  val textureHandler = new ConnectedTextureHandler(Settings.assetName("Window_Side"), block => block.isInstanceOf[MachineGlass])
 
   override def registerBlockIcons(register: IIconRegister) =
     textureHandler.loadTextures(register)
+
+  override def getIcon(side:Int, meta:Int): IIcon =
+    textureHandler.getTexture(side)
 
   override def getIcon(world: IBlockAccess, x: Int, y: Int, z:Int, side: Int): IIcon =
     textureHandler.getTexture(world, x, y, z, side)

@@ -1,9 +1,14 @@
 package ch.ltouroumov.modularmachines.common.tileentity
 
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.world.World
+import net.minecraftforge.common.util.ForgeDirection
+import ch.ltouroumov.modularmachines.common.tileentity.PortType._
 
-class MachinePortEntity extends BaseEntity with RotatableEntity {
-  var portType = PortType.Items
+class MachinePortEntity(pType: PortType) extends BaseEntity with RotatableEntity with WrenchableEntity {
+  var portType = pType
   var portDirection = PortDirection.In
 
   override def writeToNBT(tag: NBTTagCompound): Unit = {
@@ -20,17 +25,12 @@ class MachinePortEntity extends BaseEntity with RotatableEntity {
     portDirection = PortDirection(tag.getInteger("Direction"))
   }
 
-}
+  def onWrench(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z:Int, side: Int) = {
+    if (player.isSneaking)
+      portDirection = PortDirection.reverse(portDirection)
+    else
+      rotate(ForgeDirection.UP)
+    world.markBlockForUpdate(x, y, z)
+  }
 
-object PortType extends Enumeration {
-  type PortType = Value
-  val Items = Value("Items")
-  val Power = Value("Power")
-  val Fluid = Value("Fluid")
-}
-
-object PortDirection extends Enumeration {
-  type PortDirection = Value
-  val In = Value("In")
-  val Out = Value("Out")
 }

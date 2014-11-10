@@ -7,6 +7,7 @@ import net.minecraft.world.IBlockAccess
 abstract class TextureHandler {
 
   def loadTextures(register: IIconRegister)
+  def getTexture(side: Int): IIcon
   def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon
 
 }

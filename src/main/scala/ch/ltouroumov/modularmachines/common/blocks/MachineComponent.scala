@@ -1,8 +1,9 @@
 package ch.ltouroumov.modularmachines.common.blocks
 
+import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.texture.ConnectedTextureHandler
-import net.minecraft.block.{ITileEntityProvider, Block}
+import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.util.IIcon
@@ -12,15 +13,17 @@ abstract class MachineComponent extends Block(Material.ground) {
 
   setHardness(1.0F)
   setStepSound(Block.soundTypeMetal)
-  setBlockName("Machine Component")
+  setBlockName("MachineComponent")
   setCreativeTab(ModularMachines.tabModularMachines)
-  setBlockTextureName("modularmachines:Machine_Side_All_Closed")
 
-  val textureHandler = new ConnectedTextureHandler("modularmachines:Frame_Side", block => block.isInstanceOf[MachineComponent])
+  val defaultTextureHandler = new ConnectedTextureHandler(Settings.assetName("Frame_Side"), block => block.isInstanceOf[MachineComponent])
 
   override def registerBlockIcons(register: IIconRegister) =
-    textureHandler.loadTextures(register)
+    defaultTextureHandler.loadTextures(register)
+
+  override def getIcon(side:Int, meta:Int): IIcon =
+    defaultTextureHandler.getTexture(side)
 
   override def getIcon(world: IBlockAccess, x: Int, y: Int, z:Int, side: Int): IIcon =
-    textureHandler.getTexture(world, x, y, z, side)
+    defaultTextureHandler.getTexture(world, x, y, z, side)
 }

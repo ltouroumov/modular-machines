@@ -1,0 +1,26 @@
+package ch.ltouroumov.modularmachines.common.texture
+
+import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.util.IIcon
+import net.minecraft.world.IBlockAccess
+import net.minecraftforge.common.util.ForgeDirection
+
+class SidedTextureHandler(val names: Map[ForgeDirection, String]) extends TextureHandler {
+
+  var textures = Map.empty[ForgeDirection, IIcon]
+
+  def loadTextures(register: IIconRegister) {
+    for ( (side, name) <- names ) {
+      textures = textures.updated(side, register.registerIcon(name))
+    }
+  }
+
+  def getTexture(side: Int): IIcon = {
+    textures(ForgeDirection.getOrientation(side))
+  }
+
+  def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon = {
+    getTexture(side)
+  }
+
+}

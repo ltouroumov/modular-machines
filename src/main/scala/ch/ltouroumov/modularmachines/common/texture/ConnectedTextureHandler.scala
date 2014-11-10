@@ -24,6 +24,10 @@ class ConnectedTextureHandler[TBlock](val baseName: String, val canConnect: Bloc
     textures = pairs.toMap
   }
 
+  def getTexture(side: Int): IIcon = {
+    textures("All_Closed")
+  }
+
   // N = z- / S = z+
   // E = x+ / W = x-
   // U = y+ / D = y-
