@@ -20,11 +20,14 @@ object ModularMachines {
   }
 
   @EventHandler
-  def preInit(evt: FMLPreInitializationEvent) = proxy.preInit(evt)
+  def preInit(evt: FMLPreInitializationEvent) =
+    proxy.preInit(evt)
 
   @EventHandler
-  def init(evt: FMLInitializationEvent) = proxy.onInit(evt)
+  def init(evt: FMLInitializationEvent) =
+    proxy.onInit(evt)
 
   @EventHandler
-  def postInit(evt: FMLPostInitializationEvent) = proxy.postInit(evt)
+  def postInit(evt: FMLPostInitializationEvent) =
+    proxy.postInit(evt)
 }
