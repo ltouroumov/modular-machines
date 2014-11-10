@@ -1,9 +1,10 @@
 package ch.ltouroumov.modularmachines.common.init
 
 import ch.ltouroumov.modularmachines.Settings
-import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortItems, MachinePortFluid, MachinePortPower, MachinePortBase}
-import ch.ltouroumov.modularmachines.common.tileentity.{ModuleType, PortType}
-import ch.ltouroumov.modularmachines.common.{blocks, tileentity}
+import ch.ltouroumov.modularmachines.common.tileentity.modules.{MachineModuleCoil, MachineModuleSmelter}
+import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortItems, MachinePortFluid, MachinePortPower}
+import ch.ltouroumov.modularmachines.common.tileentity.{MachineControllerEntity, ModuleType, PortType}
+import ch.ltouroumov.modularmachines.common.blocks
 import cpw.mods.fml.common.registry.GameRegistry
 
 object Blocks extends ObjectRegistry {
@@ -28,11 +29,12 @@ object Blocks extends ObjectRegistry {
   }
 
   def registerTileEntities() {
-    GameRegistry.registerTileEntity(classOf[tileentity.MachineControllerEntity], Settings.namespace + "machineController")
+    GameRegistry.registerTileEntity(classOf[MachineControllerEntity], Settings.namespace + "machineController")
     GameRegistry.registerTileEntity(classOf[MachinePortItems], Settings.namespace + "machinePortItems")
     GameRegistry.registerTileEntity(classOf[MachinePortPower], Settings.namespace + "machinePortPower")
     GameRegistry.registerTileEntity(classOf[MachinePortFluid], Settings.namespace + "machinePortFluid")
-    GameRegistry.registerTileEntity(classOf[tileentity.MachineModuleEntity], Settings.namespace + "machineModule")
+    GameRegistry.registerTileEntity(classOf[MachineModuleSmelter], Settings.namespace + "machineModuleSmelter")
+    GameRegistry.registerTileEntity(classOf[MachineModuleCoil], Settings.namespace + "machineModuleCoil")
   }
 
   registerCallback(1, registerBlocks)
