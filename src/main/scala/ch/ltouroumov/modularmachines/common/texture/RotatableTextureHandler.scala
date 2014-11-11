@@ -39,10 +39,14 @@ object RotatableTextureHandler {
         List(name)
 
       override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
-        if (entity != null && entity.isFront(side))
-          Some(name)
-        else
-          None
+        entity match {
+          case rt: RotatableEntity if rt.isFront(side) =>
+            Some(name)
+          case RotatableEntityDummy if side == ForgeDirection.SOUTH =>
+            Some(name)
+          case _ =>
+            None
+        }
     }
   
 }
