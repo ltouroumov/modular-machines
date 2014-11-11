@@ -25,3 +25,5 @@ trait RotatableEntity {
     facing = ForgeDirection.getOrientation(tag.getInteger("facing"))
   }
 }
+
+object RotatableDummy

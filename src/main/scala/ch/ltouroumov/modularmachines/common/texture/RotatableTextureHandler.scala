@@ -33,10 +33,6 @@ abstract class RotatableTextureHandler(val delegate: TextureHandler, val baseNam
 }
 
 object RotatableTextureHandler {
-  object Dummy extends RotatableEntity {
-    facing = ForgeDirection.SOUTH
-  }
-
   def simpleHandler(name: String, delegate: TextureHandler) =
     new RotatableTextureHandler(delegate) {
       override def sideTextureNames: List[String] =
