@@ -6,19 +6,24 @@ import net.minecraft.util.IIcon
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.common.util.ForgeDirection
 
-class RotatableTextureHandler(val frontName: String, val delegate: TextureHandler) extends TextureHandler {
+abstract class RotatableTextureHandler(val baseName: String, val delegate: TextureHandler) extends TextureHandler {
 
-  var frontTexture: IIcon = null
+  def frontTextureNames: List[String]
+  def frontTextureFor(entity: RotatableEntity, side: ForgeDirection): String
+
+  var frontTextures = Map.empty[String, IIcon]
 
   def loadTextures(register: IIconRegister) = {
     delegate.loadTextures(register)
-    frontTexture = register.registerIcon(frontName)
+    for (name <- frontTextureNames)
+      frontTextures = frontTextures.updated(name, register.registerIcon(baseName + name))
   }
 
   def getTexture(side: Int): IIcon = {
     ForgeDirection.getOrientation(side) match {
-      case ForgeDirection.NORTH | ForgeDirection.SOUTH =>
-        frontTexture
+      case fd @ ForgeDirection.SOUTH =>
+        val texName = frontTextureFor(null, fd)
+        frontTextures(texName)
       case _ =>
         delegate.getTexture(side)
     }
@@ -26,10 +31,23 @@ class RotatableTextureHandler(val frontName: String, val delegate: TextureHandle
   def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon = {
     world.getTileEntity(x, y, z) match {
       case rt: RotatableEntity if rt.facing == side =>
-          frontTexture
+        val texName = frontTextureFor(rt, ForgeDirection.getOrientation(side))
+        frontTextures(texName)
       case _ =>
         delegate.getTexture(world, x, y, z, side)
     }
   }
+}
 
+object RotatableTextureHandler {
+  
+  def simpleHandler(name: String, delegate: TextureHandler) =
+    new RotatableTextureHandler("", delegate) {
+      override def frontTextureNames: List[String] =
+        List(name)
+
+      override def frontTextureFor(entity: RotatableEntity, side: ForgeDirection): String =
+        name
+    }
+  
 }
