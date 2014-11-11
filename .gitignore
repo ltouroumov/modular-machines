@@ -1,9 +1,5 @@
 .gradle/
 .idea/
 eclipse/
-CREDITS-fml.txt
-LICENSE-fml.txt
-MinecraftForge-Credits.txt
-MinecraftForge-License.txt
-README.txt
-forge-1.7.10-10.13.2.1230-changelog.txt
+*.iml
+*.txt
