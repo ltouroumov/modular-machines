@@ -4,12 +4,16 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.util.ForgeDirection
 
 trait RotatableEntity {
-  var facing: ForgeDirection = ForgeDirection.NORTH
+  // Not saved to NBT
+  var oldFacing = ForgeDirection.NORTH
+
+  var facing = ForgeDirection.NORTH
 
   def isFront(side: ForgeDirection) = side == facing
   def isBack(side: ForgeDirection) = side == facing.getOpposite
 
   def rotate(axis: ForgeDirection): Unit = {
+    oldFacing = facing
     facing = facing.getRotation(axis)
   }
 

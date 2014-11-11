@@ -1,5 +1,6 @@
 package ch.ltouroumov.modularmachines.common.blocks
 
+import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.common.texture.RotatableTextureHandler
 import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortFluid, MachinePortPower, MachinePortItems, MachinePortBase}
 import ch.ltouroumov.modularmachines.common.tileentity.RotatableEntity
@@ -16,24 +17,23 @@ class MachinePort(val pType: PortType) extends MachineComponent with ITileEntity
     case _ => "MachinePort_Unkown"
   })
 
-  val baseName = "modularmachines:Ports_"
   override def createTextureHandler =
-    new RotatableTextureHandler(super.createTextureHandler, baseName) {
+    new RotatableTextureHandler(super.createTextureHandler, Settings.namespace) {
       override def sideTextureNames: List[String] = List(
-        "Items_In", "Items_Out",
-        "Power_In", "Power_Out",
-        "Fluid_In", "Fluid_Out"
+        "Ports_Items_In", "Ports_Items_Out",
+        "Ports_Power_In", "Ports_Power_Out",
+        "Ports_Fluid_In", "Ports_Fluid_Out"
       )
 
       override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
         entity match {
           case te: MachinePortBase if te.isFront(side) =>
-            Some(String.format("%s_%s", te.portType, te.portDirection))
+            Some(String.format("Ports_%s_%s", te.portType, te.portDirection))
           case null if side == ForgeDirection.SOUTH =>
             pType match {
-              case Items => Some("Items_In")
-              case Power => Some("Power_In")
-              case Fluid => Some("Fluid_In")
+              case Items => Some("Ports_Items_In")
+              case Power => Some("Ports_Power_In")
+              case Fluid => Some("Ports_Fluid_In")
             }
           case _ => None
         }

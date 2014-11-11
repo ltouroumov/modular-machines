@@ -20,11 +20,10 @@ class MachinePortPower extends MachinePortBase with IEnergyHandler {
     energyBuffer = tag.getInteger("EnergyBuffer")
   }
 
-  def canConnectEnergy(from: ForgeDirection): Boolean =
-    from.ordinal() == facing
+  def canConnectEnergy(from: ForgeDirection): Boolean = isFront(from)
 
   def receiveEnergy(from: ForgeDirection, maxReceive: Int, simulate: Boolean): Int =
-    if (from.ordinal() == facing)
+    if (canConnectEnergy(from))
       Math.min(MachinePortPower.maxPowerBuffer - energyBuffer, maxReceive)
     else 0
 

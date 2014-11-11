@@ -43,13 +43,13 @@ class MachineModule(mType: ModuleType) extends MachineComponent with ITileEntity
         RotatableTextureHandler.simpleHandler(Settings.assetName("Module_Smelter"), sidedTextureHandler)
 
       case Coil =>
-        new RotatableTextureHandler(sidedTextureHandler) {
+        new RotatableTextureHandler(sidedTextureHandler, Settings.namespace) {
           override def sideTextureNames: List[String] = List(
-            Settings.assetName("Module_Coil"), Settings.assetName("Module_Coil_Back")
+            "Module_Coil_Front", "Module_Coil_Back"
           )
           override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
             side match {
-              case s if entity.isFront(s) => Some("Module_Coil")
+              case s if entity.isFront(s) => Some("Module_Coil_Front")
               case s if entity.isBack(s) => Some("Module_Coil_Back")
               case _ => None
             }
