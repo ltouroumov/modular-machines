@@ -28,6 +28,22 @@ minecraft {
     runDir = "eclipse"
 }
 
+sourceSets {
+    main {
+        scala {
+            srcDir 'src/main/java'
+        }
+
+        scala {
+            srcDir 'src/main/scala'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
@@ -44,8 +60,7 @@ dependencies {
 
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -61,5 +76,34 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    from { configurations.exportedCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    classifier = 'dev'
+}
+
+publishing {
+    tasks.publish.dependsOn 'build'
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar
+            artifact deobfJar
+        }
+    }
+
+    repositories {
+        if (project.hasProperty('mavendir')) {
+            maven { url mavendir }
+        }
     }
 }
