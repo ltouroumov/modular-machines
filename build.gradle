@@ -17,6 +17,7 @@ buildscript {
 
 apply plugin: 'scala'
 apply plugin: 'forge'
+apply plugin: 'maven-publish'
 
 version = "1.0"
 group= "ch.ltouroumov.modularmachines" // http://maven.apache.org/guides/mini/guide-naming-conventions.html

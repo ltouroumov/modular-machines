@@ -26,4 +26,4 @@ trait RotatableEntity {
   }
 }
 
-object RotatableDummy
+object RotatableEntityDummy extends RotatableEntity

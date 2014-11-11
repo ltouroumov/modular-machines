@@ -3,7 +3,7 @@ package ch.ltouroumov.modularmachines.common.blocks
 import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.common.texture.RotatableTextureHandler
 import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortFluid, MachinePortPower, MachinePortItems, MachinePortBase}
-import ch.ltouroumov.modularmachines.common.tileentity.RotatableEntity
+import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
 import ch.ltouroumov.modularmachines.common.tileentity.PortType._
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.world.World
@@ -29,7 +29,7 @@ class MachinePort(val pType: PortType) extends MachineComponent with ITileEntity
         entity match {
           case te: MachinePortBase if te.isFront(side) =>
             Some(String.format("Ports_%s_%s", te.portType, te.portDirection))
-          case null if side == ForgeDirection.SOUTH =>
+          case RotatableEntityDummy if side == ForgeDirection.SOUTH =>
             pType match {
               case Items => Some("Ports_Items_In")
               case Power => Some("Ports_Power_In")

@@ -1,6 +1,6 @@
 package ch.ltouroumov.modularmachines.common.texture
 
-import ch.ltouroumov.modularmachines.common.tileentity.RotatableEntity
+import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.util.IIcon
 import net.minecraft.world.IBlockAccess
@@ -20,7 +20,7 @@ abstract class RotatableTextureHandler(val delegate: TextureHandler, val baseNam
   }
 
   def getTexture(side: ForgeDirection): IIcon = {
-    sideTextureFor(RotatableTextureHandler.Dummy, side) map frontTextures.apply getOrElse delegate.getTexture(side)
+    sideTextureFor(RotatableEntityDummy, side) map frontTextures.apply getOrElse delegate.getTexture(side)
   }
   def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: ForgeDirection): IIcon = {
     world.getTileEntity(x, y, z) match {

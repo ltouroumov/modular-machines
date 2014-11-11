@@ -4,7 +4,7 @@ import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.texture.{RotatableTextureHandler, SidedTextureHandler}
 import ch.ltouroumov.modularmachines.common.tileentity.ModuleType._
-import ch.ltouroumov.modularmachines.common.tileentity.RotatableEntity
+import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
 import ch.ltouroumov.modularmachines.common.tileentity.modules.{MachineModuleCoil, MachineModuleSmelter}
 import net.minecraft.block.{ITileEntityProvider, Block}
 import net.minecraft.world.World
@@ -47,10 +47,17 @@ class MachineModule(mType: ModuleType) extends MachineComponent with ITileEntity
           override def sideTextureNames: List[String] =
             List("Module_Coil_Front", "Module_Coil_Back")
           override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
-            side match {
-              case s if entity.isFront(s) => Some("Module_Coil_Front")
-              case s if entity.isBack(s) => Some("Module_Coil_Back")
-              case _ => None
+            entity match {
+              case mm: MachineModuleCoil =>
+                side match {
+                  case s if entity.isFront(s) => Some("Module_Coil_Front")
+                  case s if entity.isBack(s) => Some("Module_Coil_Back")
+                  case _ => None
+                }
+              case RotatableEntityDummy if side == ForgeDirection.SOUTH =>
+                Some("Module_Coil_Front")
+              case _ =>
+                None
             }
         }
     }
