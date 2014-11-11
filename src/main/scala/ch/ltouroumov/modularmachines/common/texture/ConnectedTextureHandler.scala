@@ -24,17 +24,16 @@ class ConnectedTextureHandler[TBlock](val baseName: String, val canConnect: Bloc
     textures = pairs.toMap
   }
 
-  def getTexture(side: Int): IIcon = {
+  def getTexture(side: ForgeDirection): IIcon = {
     textures("All_Closed")
   }
 
   // N = z- / S = z+
   // E = x+ / W = x-
   // U = y+ / D = y-
-  def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon = {
+  def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: ForgeDirection): IIcon = {
     implicit val w = world
-    val direction = ForgeDirection.getOrientation(side)
-    val connected = direction match {
+    val connected = side match {
       case ForgeDirection.UP | ForgeDirection.DOWN => searchXZ(x, y, z)
       case ForgeDirection.NORTH => searchXY(x, y, z, -1)
       case ForgeDirection.SOUTH => searchXY(x, y, z, 1)

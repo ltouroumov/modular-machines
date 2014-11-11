@@ -15,11 +15,11 @@ class SidedTextureHandler(val names: Map[ForgeDirection, String]) extends Textur
     }
   }
 
-  def getTexture(side: Int): IIcon = {
-    textures(ForgeDirection.getOrientation(side))
+  def getTexture(side: ForgeDirection): IIcon = {
+    textures(side)
   }
 
-  def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon = {
+  def getTexture(world: IBlockAccess, x: Int, y: Int, z: Int, side: ForgeDirection): IIcon = {
     getTexture(side)
   }
 

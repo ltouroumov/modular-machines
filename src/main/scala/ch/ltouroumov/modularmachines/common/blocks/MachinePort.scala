@@ -18,23 +18,24 @@ class MachinePort(val pType: PortType) extends MachineComponent with ITileEntity
 
   val baseName = "modularmachines:Ports_"
   override def createTextureHandler =
-    new RotatableTextureHandler(baseName, super.createTextureHandler) {
-      override def frontTextureNames: List[String] = List(
+    new RotatableTextureHandler(super.createTextureHandler, baseName) {
+      override def sideTextureNames: List[String] = List(
         "Items_In", "Items_Out",
         "Power_In", "Power_Out",
         "Fluid_In", "Fluid_Out"
       )
 
-      override def frontTextureFor(entity: RotatableEntity, side: ForgeDirection): String =
+      override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
         entity match {
-          case te: MachinePortBase =>
-            String.format("%s_%s", te.portType, te.portDirection)
-          case _ =>
+          case te: MachinePortBase if te.isFront(side) =>
+            Some(String.format("%s_%s", te.portType, te.portDirection))
+          case null if side == ForgeDirection.SOUTH =>
             pType match {
-              case Items => "Items_In"
-              case Power => "Power_In"
-              case Fluid => "Fluid_In"
+              case Items => Some("Items_In")
+              case Power => Some("Power_In")
+              case Fluid => Some("Fluid_In")
             }
+          case _ => None
         }
     }
 

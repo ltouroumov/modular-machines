@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.util.IIcon
 import net.minecraft.world.IBlockAccess
+import net.minecraftforge.common.util.ForgeDirection
 
 abstract class MachineComponent extends Block(Material.ground) {
 
@@ -26,8 +27,8 @@ abstract class MachineComponent extends Block(Material.ground) {
     defaultTextureHandler.loadTextures(register)
 
   override def getIcon(side:Int, meta:Int): IIcon =
-    defaultTextureHandler.getTexture(side)
+    defaultTextureHandler.getTexture(ForgeDirection.getOrientation(side))
 
   override def getIcon(world: IBlockAccess, x: Int, y: Int, z:Int, side: Int): IIcon =
-    defaultTextureHandler.getTexture(world, x, y, z, side)
+    defaultTextureHandler.getTexture(world, x, y, z, ForgeDirection.getOrientation(side))
 }

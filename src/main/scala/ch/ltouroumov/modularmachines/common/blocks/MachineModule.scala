@@ -4,6 +4,7 @@ import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.texture.{RotatableTextureHandler, SidedTextureHandler}
 import ch.ltouroumov.modularmachines.common.tileentity.ModuleType._
+import ch.ltouroumov.modularmachines.common.tileentity.RotatableEntity
 import ch.ltouroumov.modularmachines.common.tileentity.modules.{MachineModuleCoil, MachineModuleSmelter}
 import net.minecraft.block.{ITileEntityProvider, Block}
 import net.minecraft.world.World
@@ -26,10 +27,6 @@ class MachineModule(mType: ModuleType) extends MachineComponent with ITileEntity
       case Coil => new MachineModuleCoil
     }
 
-  val frontTextureMap = Map(
-    Smelter -> Settings.assetName("Module_Smelter"),
-    Coil -> Settings.assetName("Module_Coil")
-  )
   val sideTextureMap = Map(
     ForgeDirection.UP    -> Settings.assetName("Module_Panel_Top"),
     ForgeDirection.DOWN  -> Settings.assetName("Module_Panel_Top"),
@@ -39,6 +36,23 @@ class MachineModule(mType: ModuleType) extends MachineComponent with ITileEntity
     ForgeDirection.WEST  -> Settings.assetName("Module_Panel_Side")
   )
 
+  val sidedTextureHandler = new SidedTextureHandler(sideTextureMap)
   override def createTextureHandler =
-    RotatableTextureHandler.simpleHandler(frontTextureMap(mType), new SidedTextureHandler(sideTextureMap))
+    mType match {
+      case Smelter =>
+        RotatableTextureHandler.simpleHandler(Settings.assetName("Module_Smelter"), sidedTextureHandler)
+
+      case Coil =>
+        new RotatableTextureHandler(sidedTextureHandler) {
+          override def sideTextureNames: List[String] = List(
+            Settings.assetName("Module_Coil"), Settings.assetName("Module_Coil_Back")
+          )
+          override def sideTextureFor(entity: RotatableEntity, side: ForgeDirection): Option[String] =
+            side match {
+              case s if entity.isFront(s) => Some("Module_Coil")
+              case s if entity.isBack(s) => Some("Module_Coil_Back")
+              case _ => None
+            }
+        }
+    }
 }
