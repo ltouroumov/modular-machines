@@ -2,10 +2,10 @@ package ch.ltouroumov.modularmachines
 
 object Settings {
 
-  val resourcesDomain = "modularmachines"
-  val namespace = resourcesDomain + ":"
+  val modid = "modularmachines"
+  val namespace = modid + ":"
 
   def assetName(name: String) =
-    String.format("%s:%s", resourcesDomain, name)
+    String.format("%s:%s", modid, name)
 
 }
