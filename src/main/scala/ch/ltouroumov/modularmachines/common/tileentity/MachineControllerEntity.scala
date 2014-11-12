@@ -9,6 +9,10 @@ import net.minecraftforge.common.util.ForgeDirection
 
 class MachineControllerEntity extends BaseEntity with RotatableEntity with WrenchableEntity {
 
+  override def updateEntity(): Unit = {
+    // Perform processing calculations
+  }
+
   def onWrench(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z:Int, side: Int) = {
     rotate(ForgeDirection.UP)
     world.markBlockForUpdate(x, y, z)
