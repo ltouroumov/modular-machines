@@ -1,6 +1,8 @@
 package ch.ltouroumov.modularmachines.common.tileentity.ports
 
-import ch.ltouroumov.modularmachines.common.tileentity.{DiagnosableEntity, PortType}
+import ch.ltouroumov.modularmachines.common.tileentity.PortType
+import ch.ltouroumov.modularmachines.common.tileentity.utils.DiagnosableEntity
+import ch.ltouroumov.modularmachines.utils.{EntityLoadHandler, EntitySaveHandler}
 import cofh.api.energy.IEnergyHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -13,13 +15,13 @@ class MachinePortPower extends MachinePortBase with IEnergyHandler with Diagnosa
 
   var energyBuffer: Int = 0
 
-  override def writeToNBT(tag: NBTTagCompound): Unit = {
-    super.writeToNBT(tag)
+  @EntitySaveHandler
+  def saveBuffer(tag: NBTTagCompound): Unit = {
     tag.setInteger("EnergyBuffer", energyBuffer)
   }
 
-  override def readFromNBT(tag: NBTTagCompound): Unit = {
-    super.readFromNBT(tag)
+  @EntityLoadHandler
+  def loadBuffer(tag: NBTTagCompound): Unit = {
     energyBuffer = tag.getInteger("EnergyBuffer")
   }
 
@@ -41,10 +43,9 @@ class MachinePortPower extends MachinePortBase with IEnergyHandler with Diagnosa
   def getMaxEnergyStored(from: ForgeDirection): Int =
     MachinePortPower.maxPowerBuffer
 
-  def onDiagnose(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z:Int, side: Int): Map[String, String] =
-    Map(
-      "Power Buffer" -> s"${energyBuffer} / ${MachinePortPower.maxPowerBuffer}"
-    )
+  def onDiagnose(message: StringBuilder, player: EntityPlayer, x: Int, y: Int, z:Int, side: Int) = {
+    message.append(s"Power Buffer: $energyBuffer / ${MachinePortPower.maxPowerBuffer}")
+  }
 }
 
 object MachinePortPower {

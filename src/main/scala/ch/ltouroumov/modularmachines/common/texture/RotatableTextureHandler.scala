@@ -1,6 +1,6 @@
 package ch.ltouroumov.modularmachines.common.texture
 
-import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
+import ch.ltouroumov.modularmachines.common.tileentity.utils.{RotatableEntityDummy, RotatableEntity}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.util.IIcon
 import net.minecraft.world.IBlockAccess

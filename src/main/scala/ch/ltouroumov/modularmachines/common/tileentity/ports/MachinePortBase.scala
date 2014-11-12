@@ -1,8 +1,10 @@
 package ch.ltouroumov.modularmachines.common.tileentity.ports
 
 import ch.ltouroumov.modularmachines.common.tileentity.PortType._
-import ch.ltouroumov.modularmachines.common.tileentity.{BaseEntity, PortDirection, RotatableEntity, WrenchableEntity}
+import ch.ltouroumov.modularmachines.common.tileentity.utils.{WrenchableEntity, RotatableEntity}
+import ch.ltouroumov.modularmachines.common.tileentity.{BaseEntity, PortDirection}
 import ch.ltouroumov.modularmachines.common.utils.WorldUpdate
+import ch.ltouroumov.modularmachines.utils.{EntitySaveHandler, EntityLoadHandler}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -14,16 +16,14 @@ abstract class MachinePortBase extends BaseEntity with RotatableEntity with Wren
   def portType: PortType
   var portDirection = PortDirection.In
 
-  override def writeToNBT(tag: NBTTagCompound): Unit = {
-    super.writeToNBT(tag)
-    saveFacing(tag)
+  @EntitySaveHandler
+  def writeToWorld(tag: NBTTagCompound): Unit = {
     tag.setInteger("Type", portType.id)
     tag.setInteger("Direction", portDirection.id)
   }
 
-  override def readFromNBT(tag: NBTTagCompound): Unit = {
-    super.readFromNBT(tag)
-    readFacing(tag)
+  @EntityLoadHandler
+  def readFromWorld(tag: NBTTagCompound): Unit = {
     portDirection = PortDirection(tag.getInteger("Direction"))
   }
 

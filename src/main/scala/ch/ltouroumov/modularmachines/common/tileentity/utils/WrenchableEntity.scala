@@ -1,4 +1,4 @@
-package ch.ltouroumov.modularmachines.common.tileentity
+package ch.ltouroumov.modularmachines.common.tileentity.utils
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack

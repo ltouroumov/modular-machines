@@ -1,6 +1,7 @@
 package ch.ltouroumov.modularmachines.common
 
 import ch.ltouroumov.modularmachines.common.init.{Recipes, Items, Blocks}
+import ch.ltouroumov.modularmachines.common.tileentity.utils.SaveHandlerCache
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
 
 abstract class CommonProxy {

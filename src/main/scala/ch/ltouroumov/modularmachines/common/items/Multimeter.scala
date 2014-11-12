@@ -1,7 +1,7 @@
 package ch.ltouroumov.modularmachines.common.items
 
 import ch.ltouroumov.modularmachines.ModularMachines
-import ch.ltouroumov.modularmachines.common.tileentity.DiagnosableEntity
+import ch.ltouroumov.modularmachines.common.tileentity.utils.DiagnosableEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{ItemStack, Item}
 import net.minecraft.util.ChatComponentText
@@ -14,13 +14,12 @@ class Multimeter extends Item {
   setTextureName("modularmachines:Multimeter")
 
   override def onItemUse(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z:Int, side: Int, p2: Float, p3: Float, p4: Float) : Boolean =
-    if (world.isRemote)
+    if (!world.isRemote)
       world.getTileEntity(x, y, z) match {
         case wr: DiagnosableEntity =>
-          val message = wr.onDiagnose(stack, player, world, x, y, z, side).map {
-            case (label, text) => s"$label: $text"
-          }.mkString("\n")
-          player.addChatComponentMessage(new ChatComponentText(message))
+          val message = new StringBuilder
+          wr.onDiagnose(message, player, x, y, z, side)
+          player.addChatComponentMessage(new ChatComponentText(message.toString()))
           true
         case _ =>
           false
