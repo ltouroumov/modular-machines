@@ -1,5 +1,6 @@
-package ch.ltouroumov.modularmachines.common.tileentity
+package ch.ltouroumov.modularmachines.common.tileentity.utils
 
+import ch.ltouroumov.modularmachines.utils.{EntityLoadHandler, EntitySaveHandler}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.util.ForgeDirection
 
@@ -17,10 +18,12 @@ trait RotatableEntity {
     facing = facing.getRotation(axis)
   }
 
+  @EntitySaveHandler
   def saveFacing(tag: NBTTagCompound): Unit = {
     tag.setInteger("facing", facing.ordinal)
   }
 
+  @EntityLoadHandler
   def readFacing(tag: NBTTagCompound): Unit = {
     facing = ForgeDirection.getOrientation(tag.getInteger("facing"))
   }

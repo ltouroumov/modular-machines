@@ -3,8 +3,8 @@ package ch.ltouroumov.modularmachines.common.blocks
 import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.common.texture.RotatableTextureHandler
 import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortFluid, MachinePortPower, MachinePortItems, MachinePortBase}
-import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
 import ch.ltouroumov.modularmachines.common.tileentity.PortType._
+import ch.ltouroumov.modularmachines.common.tileentity.utils.{RotatableEntityDummy, RotatableEntity}
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection

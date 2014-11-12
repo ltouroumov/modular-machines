@@ -4,8 +4,8 @@ import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.texture.{RotatableTextureHandler, SidedTextureHandler}
 import ch.ltouroumov.modularmachines.common.tileentity.ModuleType._
-import ch.ltouroumov.modularmachines.common.tileentity.{RotatableEntityDummy, RotatableEntity}
 import ch.ltouroumov.modularmachines.common.tileentity.modules.{MachineModuleCoil, MachineModuleSmelter}
+import ch.ltouroumov.modularmachines.common.tileentity.utils.{RotatableEntityDummy, RotatableEntity}
 import net.minecraft.block.{ITileEntityProvider, Block}
 import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection

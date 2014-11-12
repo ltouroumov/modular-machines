@@ -2,6 +2,7 @@ package ch.ltouroumov.modularmachines.common.items
 
 import ch.ltouroumov.modularmachines.ModularMachines
 import ch.ltouroumov.modularmachines.common.tileentity._
+import ch.ltouroumov.modularmachines.common.tileentity.utils.WrenchableEntity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{ItemStack, Item}
 import net.minecraft.world.World
