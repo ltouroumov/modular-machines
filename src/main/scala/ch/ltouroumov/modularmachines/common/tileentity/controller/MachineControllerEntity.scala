@@ -53,7 +53,8 @@ class MachineControllerEntity extends BaseEntity with RotatableEntity with Wrenc
     for ((idx, slotData) <- NBTTagListIterator.compoundIterator(slotsData)) {
       val cardName = slotData.getString("CardName")
       val card = MachineCardFactory.create(cardName)
-      card.loadData(slotData)
+      if (card != null)
+        card.loadData(slotData)
       cardSlots(idx) = card
     }
   }
