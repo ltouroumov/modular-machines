@@ -2,7 +2,7 @@ package ch.ltouroumov.modularmachines.common.blocks
 
 import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.common.texture.RotatableTextureHandler
-import ch.ltouroumov.modularmachines.common.tileentity.MachineControllerEntity
+import ch.ltouroumov.modularmachines.common.tileentity.controller.MachineControllerEntity
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.player.EntityPlayer

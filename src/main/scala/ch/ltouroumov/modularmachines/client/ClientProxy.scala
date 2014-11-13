@@ -2,7 +2,7 @@ package ch.ltouroumov.modularmachines.client
 
 import ch.ltouroumov.modularmachines.client.models.MachineControllerRender
 import ch.ltouroumov.modularmachines.common.CommonProxy
-import ch.ltouroumov.modularmachines.common.tileentity.MachineControllerEntity
+import ch.ltouroumov.modularmachines.common.tileentity.controller.MachineControllerEntity
 import cpw.mods.fml.client.registry.ClientRegistry
 
 class ClientProxy extends CommonProxy {

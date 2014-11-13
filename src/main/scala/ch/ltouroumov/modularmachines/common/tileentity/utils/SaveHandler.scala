@@ -1,6 +1,6 @@
 package ch.ltouroumov.modularmachines.common.tileentity.utils
 
-import ch.ltouroumov.modularmachines.utils.{EntityLoadHandler, EntitySaveHandler}
+import ch.ltouroumov.modularmachines.utils.annotation.{EntitySaveHandler, EntityLoadHandler}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import java.lang.reflect.Method

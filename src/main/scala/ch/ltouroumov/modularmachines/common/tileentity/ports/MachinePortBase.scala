@@ -4,11 +4,10 @@ import ch.ltouroumov.modularmachines.common.tileentity.PortType._
 import ch.ltouroumov.modularmachines.common.tileentity.utils.{WrenchableEntity, RotatableEntity}
 import ch.ltouroumov.modularmachines.common.tileentity.{BaseEntity, PortDirection}
 import ch.ltouroumov.modularmachines.common.utils.WorldUpdate
-import ch.ltouroumov.modularmachines.utils.{EntitySaveHandler, EntityLoadHandler}
+import ch.ltouroumov.modularmachines.utils.annotation.{EntitySaveHandler, EntityLoadHandler}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.Facing
 import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection
 

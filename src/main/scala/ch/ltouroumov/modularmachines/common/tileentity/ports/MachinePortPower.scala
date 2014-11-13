@@ -2,12 +2,10 @@ package ch.ltouroumov.modularmachines.common.tileentity.ports
 
 import ch.ltouroumov.modularmachines.common.tileentity.PortType
 import ch.ltouroumov.modularmachines.common.tileentity.utils.DiagnosableEntity
-import ch.ltouroumov.modularmachines.utils.{EntityLoadHandler, EntitySaveHandler}
+import ch.ltouroumov.modularmachines.utils.annotation.{EntitySaveHandler, EntityLoadHandler}
 import cofh.api.energy.IEnergyHandler
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection
 
 class MachinePortPower extends MachinePortBase with IEnergyHandler with DiagnosableEntity {

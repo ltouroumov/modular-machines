@@ -2,7 +2,7 @@ package ch.ltouroumov.modularmachines.client.models
 
 import ch.ltouroumov.modularmachines.Settings
 import ch.ltouroumov.modularmachines.common.init.Blocks
-import ch.ltouroumov.modularmachines.common.tileentity.MachineControllerEntity
+import ch.ltouroumov.modularmachines.common.tileentity.controller.MachineControllerEntity
 import ch.ltouroumov.modularmachines.common.utils.RenderUtils
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.{OpenGlHelper, Tessellator}
@@ -22,7 +22,7 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
 
     GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS)
 
-    RenderUtils.disableLighting()
+    //RenderUtils.disableLighting()
     RenderUtils.makeItBlend()
 
     GL11.glPushMatrix()
@@ -33,19 +33,13 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
     GL11.glScalef(1, 1, 1)
 
     val te = entity.asInstanceOf[MachineControllerEntity]
-
-    val angle = te.facing match {
-      case ForgeDirection.NORTH =>
-        0
-      case ForgeDirection.EAST =>
-        90
-      case ForgeDirection.SOUTH =>
-        180
-      case ForgeDirection.WEST =>
-        270
-    }
-
+    val angle = RenderUtils.angleFromDirection(te.facing)
     GL11.glRotated(angle, 0, 1, 0)
+
+    model.card1Visible = te.cardSlots(0) != null
+    model.card2Visible = te.cardSlots(1) != null
+    model.card3Visible = te.cardSlots(2) != null
+    model.card4Visible = te.programSlot != null
 
     bindTexture(new ResourceLocation(Settings.modid, "textures/blocks/Controller_Map.png"))
     model.render(null, 0, 0, -0.1f, 0, 0, 0.0625f)

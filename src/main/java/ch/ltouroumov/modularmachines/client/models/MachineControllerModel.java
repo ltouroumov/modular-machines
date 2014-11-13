@@ -27,7 +27,12 @@ public class MachineControllerModel extends ModelBase
     ModelRenderer Card2;
     ModelRenderer Card3;
     ModelRenderer Card4;
-  
+
+    boolean card1Visible = true;
+    boolean card2Visible = true;
+    boolean card3Visible = true;
+    boolean card4Visible = true;
+
   public MachineControllerModel()
   {
       textureWidth = 128;
@@ -133,10 +138,10 @@ public class MachineControllerModel extends ModelBase
     Slot2.render(f5);
     Slot3.render(f5);
     Slot4.render(f5);
-    Card1.render(f5);
-    Card2.render(f5);
-    Card3.render(f5);
-    Card4.render(f5);
+    if (this.card1Visible) Card1.render(f5);
+    if (this.card2Visible) Card2.render(f5);
+    if (this.card3Visible) Card3.render(f5);
+    if (this.card4Visible) Card4.render(f5);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)

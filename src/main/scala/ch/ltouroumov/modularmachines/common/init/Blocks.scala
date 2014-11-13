@@ -1,8 +1,9 @@
 package ch.ltouroumov.modularmachines.common.init
 
+import ch.ltouroumov.modularmachines.common.tileentity.controller.MachineControllerEntity
 import ch.ltouroumov.modularmachines.common.tileentity.modules.{MachineModuleCoil, MachineModuleSmelter}
 import ch.ltouroumov.modularmachines.common.tileentity.ports.{MachinePortItems, MachinePortFluid, MachinePortPower}
-import ch.ltouroumov.modularmachines.common.tileentity.{MachineControllerEntity, ModuleType, PortType}
+import ch.ltouroumov.modularmachines.common.tileentity.{ModuleType, PortType}
 import ch.ltouroumov.modularmachines.common.blocks
 import cpw.mods.fml.common.registry.GameRegistry
 

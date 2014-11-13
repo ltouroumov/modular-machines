@@ -1,6 +1,7 @@
 package ch.ltouroumov.modularmachines.common.utils
 
 import net.minecraft.client.renderer.OpenGlHelper
+import net.minecraftforge.common.util.ForgeDirection
 import org.lwjgl.opengl._
 import org.lwjgl.util.glu.GLU
 
@@ -12,6 +13,16 @@ object RenderUtils {
   val arb = GLContext.getCapabilities.GL_ARB_multitexture && !GLContext.getCapabilities.OpenGL13
 
   private val canUseBlendColor = GLContext.getCapabilities.OpenGL14
+
+  def angleFromDirection(dir: ForgeDirection): Float = {
+    dir match {
+      case ForgeDirection.NORTH => 0
+      case ForgeDirection.EAST  => 90
+      case ForgeDirection.SOUTH => 180
+      case ForgeDirection.WEST  => 270
+      case _ => 0
+    }
+  }
 
   def checkError(where: String) {
     val error = GL11.glGetError

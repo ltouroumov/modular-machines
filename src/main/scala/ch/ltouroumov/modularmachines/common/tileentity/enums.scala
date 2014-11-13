@@ -25,15 +25,3 @@ object PortDirection extends Enumeration {
       case Out => In
     }
 }
-
-object ControllerModule {
-  trait ControllerCardType
-
-  case class EnergyCard(tier: Int) extends ControllerCardType
-  case class BufferCard(tier: Int) extends ControllerCardType
-  case class SpeedCard(tier: Int) extends ControllerCardType
-
-  trait ControllerProgramType
-
-  case object SmelterProgram extends ControllerProgramType
-}

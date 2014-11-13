@@ -1,4 +1,4 @@
-package ch.ltouroumov.modularmachines.utils;
+package ch.ltouroumov.modularmachines.utils.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface EntityLoadHandler {
+public @interface EntitySaveHandler {
 
 }
