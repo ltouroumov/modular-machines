@@ -19,7 +19,5 @@ abstract class CommonProxy {
 
   }
 
-  def registerRenders() = {
-
-  }
+  def registerRenders() = {}
 }

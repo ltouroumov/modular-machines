@@ -4,14 +4,13 @@
 // Keep in mind that you still need to fill in some blanks
 // - ZeuX
 
+package ch.ltouroumov.modularmachines.client.models;
 
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
-
-
-
-package net.minecraft.src;
-
-public class ModelMachineControllerModel extends ModelBase
+public class MachineControllerModel extends ModelBase
 {
   //fields
     ModelRenderer LeftSide;
@@ -29,19 +28,17 @@ public class ModelMachineControllerModel extends ModelBase
     ModelRenderer Card3;
     ModelRenderer Card4;
   
-  public ModelMachineControllerModel()
+  public MachineControllerModel()
   {
-    textureWidth = 128;
-    textureHeight = 64;
-    
-      LeftSide.mirror = true;
+      textureWidth = 128;
+      textureHeight = 64;
+
       LeftSide = new ModelRenderer(this, 0, 0);
       LeftSide.addBox(0F, 0F, 0F, 1, 9, 16);
       LeftSide.setRotationPoint(-8F, 7F, -8F);
       LeftSide.setTextureSize(128, 64);
       LeftSide.mirror = true;
       setRotation(LeftSide, 0F, 0F, 0F);
-      LeftSide.mirror = false;
       RightSide = new ModelRenderer(this, 0, 0);
       RightSide.addBox(-1F, 0F, 0F, 1, 9, 16);
       RightSide.setRotationPoint(8F, 7F, -8F);
@@ -125,7 +122,7 @@ public class ModelMachineControllerModel extends ModelBase
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5);
+    setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     LeftSide.render(f5);
     RightSide.render(f5);
     BackSide.render(f5);
@@ -147,11 +144,6 @@ public class ModelMachineControllerModel extends ModelBase
     model.rotateAngleX = x;
     model.rotateAngleY = y;
     model.rotateAngleZ = z;
-  }
-  
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5);
   }
 
 }
