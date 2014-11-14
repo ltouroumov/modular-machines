@@ -43,7 +43,7 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
     model.render(null, 0, 0, -0.1f, 0, 0, 0.0625f)
 
     if (te != null) {
-      
+
     }
 
     GL11.glPopMatrix()
