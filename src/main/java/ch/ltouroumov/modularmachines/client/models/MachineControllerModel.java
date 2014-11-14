@@ -23,15 +23,6 @@ public class MachineControllerModel extends ModelBase
     ModelRenderer Slot2;
     ModelRenderer Slot3;
     ModelRenderer Slot4;
-    ModelRenderer Card1;
-    ModelRenderer Card2;
-    ModelRenderer Card3;
-    ModelRenderer Card4;
-
-    boolean card1Visible = true;
-    boolean card2Visible = true;
-    boolean card3Visible = true;
-    boolean card4Visible = true;
 
   public MachineControllerModel()
   {
@@ -98,30 +89,6 @@ public class MachineControllerModel extends ModelBase
       Slot4.setTextureSize(128, 64);
       Slot4.mirror = true;
       setRotation(Slot4, 0F, 0F, 0F);
-      Card1 = new ModelRenderer(this, 64, 0);
-      Card1.addBox(0F, 0F, 0F, 1, 6, 12);
-      Card1.setRotationPoint(5F, 8F, -6F);
-      Card1.setTextureSize(128, 64);
-      Card1.mirror = true;
-      setRotation(Card1, 0F, 0F, 0F);
-      Card2 = new ModelRenderer(this, 64, 0);
-      Card2.addBox(0F, 0F, 0F, 1, 6, 12);
-      Card2.setRotationPoint(3F, 8F, -6F);
-      Card2.setTextureSize(128, 64);
-      Card2.mirror = true;
-      setRotation(Card2, 0F, 0F, 0F);
-      Card3 = new ModelRenderer(this, 64, 0);
-      Card3.addBox(0F, 0F, 0F, 1, 6, 12);
-      Card3.setRotationPoint(1F, 8F, -6F);
-      Card3.setTextureSize(128, 64);
-      Card3.mirror = true;
-      setRotation(Card3, 0F, 0F, 0F);
-      Card4 = new ModelRenderer(this, 64, 18);
-      Card4.addBox(0F, 0F, 0F, 4, 6, 12);
-      Card4.setRotationPoint(-6F, 8F, -6F);
-      Card4.setTextureSize(128, 64);
-      Card4.mirror = true;
-      setRotation(Card4, 0F, 0F, 0F);
   }
   
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
@@ -138,10 +105,6 @@ public class MachineControllerModel extends ModelBase
     Slot2.render(f5);
     Slot3.render(f5);
     Slot4.render(f5);
-    if (this.card1Visible) Card1.render(f5);
-    if (this.card2Visible) Card2.render(f5);
-    if (this.card3Visible) Card3.render(f5);
-    if (this.card4Visible) Card4.render(f5);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)

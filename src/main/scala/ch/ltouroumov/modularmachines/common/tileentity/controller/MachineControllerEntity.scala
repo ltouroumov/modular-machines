@@ -22,7 +22,10 @@ class MachineControllerEntity extends BaseEntity with RotatableEntity with Wrenc
   val cardSlots = new Array[MachineCardBase](CARD_SLOTS)
 
   def insertCard(card: MachineCardBase): Boolean = {
-    //for (slot <- cardSlots. if slot == null)
+    for ( (slot, idx) <- cardSlots.zipWithIndex if slot == null) {
+      cardSlots(idx) = card
+      true
+    }
     false
   }
 

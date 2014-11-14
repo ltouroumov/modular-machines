@@ -16,6 +16,8 @@ import org.lwjgl.opengl.GL11
 class MachineControllerRender extends TileEntitySpecialRenderer {
 
   val model = new MachineControllerModel()
+  val programModel = new MachineProgramModel()
+  val cardModel = new MachineCardModel()
 
   override def renderTileEntityAt(entity: TileEntity, x: Double, y: Double, z: Double, f: Float): Unit = {
     RenderUtils.checkError("Before MachineControllerRender")
@@ -37,20 +39,12 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
                 else RenderUtils.angleFromDirection(te.facing)
     GL11.glRotated(angle, 0, 1, 0)
 
-    if (te != null) {
-      model.card1Visible = te.cardSlots(0) != null
-      model.card2Visible = te.cardSlots(1) != null
-      model.card3Visible = te.cardSlots(2) != null
-      model.card4Visible = te.programSlot != null
-    } else {
-      model.card1Visible = true
-      model.card2Visible = true
-      model.card3Visible = true
-      model.card4Visible = true
-    }
-
     bindTexture(new ResourceLocation(Settings.modid, "textures/blocks/Controller_Map.png"))
     model.render(null, 0, 0, -0.1f, 0, 0, 0.0625f)
+
+    if (te != null) {
+      
+    }
 
     GL11.glPopMatrix()
     GL11.glPopAttrib()

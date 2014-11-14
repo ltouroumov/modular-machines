@@ -20,7 +20,7 @@ class MachineProgramItem extends Item {
       world.getTileEntity(x, y, z) match {
         case mc: MachineControllerEntity =>
           if (mc.programSlot == null)
-            mc.programSlot = MachineProgramFactory.create(programName)
+            mc.programSlot = MachineProgramFactory.create("SmelterProgram")
           true
         case _ =>
           false
