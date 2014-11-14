@@ -23,7 +23,7 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
     GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS)
 
     //RenderUtils.disableLighting()
-    RenderUtils.makeItBlend()
+    //RenderUtils.makeItBlend()
 
     GL11.glPushMatrix()
 
@@ -33,13 +33,21 @@ class MachineControllerRender extends TileEntitySpecialRenderer {
     GL11.glScalef(1, 1, 1)
 
     val te = entity.asInstanceOf[MachineControllerEntity]
-    val angle = RenderUtils.angleFromDirection(te.facing)
+    val angle = if (te == null) 180
+                else RenderUtils.angleFromDirection(te.facing)
     GL11.glRotated(angle, 0, 1, 0)
 
-    model.card1Visible = te.cardSlots(0) != null
-    model.card2Visible = te.cardSlots(1) != null
-    model.card3Visible = te.cardSlots(2) != null
-    model.card4Visible = te.programSlot != null
+    if (te != null) {
+      model.card1Visible = te.cardSlots(0) != null
+      model.card2Visible = te.cardSlots(1) != null
+      model.card3Visible = te.cardSlots(2) != null
+      model.card4Visible = te.programSlot != null
+    } else {
+      model.card1Visible = true
+      model.card2Visible = true
+      model.card3Visible = true
+      model.card4Visible = true
+    }
 
     bindTexture(new ResourceLocation(Settings.modid, "textures/blocks/Controller_Map.png"))
     model.render(null, 0, 0, -0.1f, 0, 0, 0.0625f)

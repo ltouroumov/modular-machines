@@ -16,8 +16,15 @@ import net.minecraftforge.common.util.ForgeDirection
 
 class MachineControllerEntity extends BaseEntity with RotatableEntity with WrenchableEntity {
 
+  val CARD_SLOTS = 3
+
   var programSlot: MachineProgramBase = null
-  val cardSlots = new Array[MachineCardBase](3)
+  val cardSlots = new Array[MachineCardBase](CARD_SLOTS)
+
+  def insertCard(card: MachineCardBase): Boolean = {
+    //for (slot <- cardSlots. if slot == null)
+    false
+  }
 
   @EntitySaveHandler
   def saveCards(tag: NBTTagCompound): Unit = {
